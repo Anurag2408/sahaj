@@ -15,7 +15,7 @@ import com.sahaj.SnakeAndLadderApplication.service.StatsService;
 public class SnakeAndLadderApplication implements CommandLineRunner {
 
     @Autowired
-    private Game simulator;
+    private Game game;
     @Autowired
     private StatsService stats;
 
@@ -42,9 +42,9 @@ public class SnakeAndLadderApplication implements CommandLineRunner {
             String snakeMovesStr= scanner.next();
             snakeMoves = Arrays.stream(snakeMovesStr.split(",")).mapToInt(Integer::parseInt).toArray();
 
-            simulator.initBoard(boardSize);
-            simulator.initializeLadderMoves(ladderMoves);
-            simulator.initializeSnakeMoves(snakeMoves);
+            game.initBoard(boardSize);
+            game.initializeLadderMoves(ladderMoves);
+            game.initializeSnakeMoves(snakeMoves);
 
         }
         int averageRollDice = stats.averageRollOfDice(noOfSimulator);
@@ -53,7 +53,7 @@ public class SnakeAndLadderApplication implements CommandLineRunner {
         int minRoll = stats.minRollsOfDice(boardSize);
         System.out.println("minimum Rolls Dice to win : "+ " "+minRoll);
 
-        System.out.println("Maximum Rolls Dice to win : "+ " "+simulator.getMaxRoll());
+        System.out.println("Maximum Rolls Dice to win : "+ " "+game.getMaxRoll());
 
         System.out.println("Max climb : "+ stats.maxClimb());
         System.out.println("Min climb :" +stats.getMinClimb());
@@ -64,10 +64,8 @@ public class SnakeAndLadderApplication implements CommandLineRunner {
         System.out.println("Min slides :" +stats.getMinSlide());
         System.out.println("Average slides : "+stats.averageSlides(noOfSimulator));
 
-        //Longest Turn
-        System.out.println("Longest Turn  : "+ simulator.getLongestTurn());
-        System.out.println("Unlucky Roll :"+  simulator.getUnLuckyRoll());
-        System.out.println("Lucky Roll :"+ simulator.getLuckyRoll());
+        System.out.println("Unlucky Roll :"+  game.getUnLuckyRoll());
+        System.out.println("Lucky Roll :"+ game.getLuckyRoll());
 
         System.out.println("Biggest Climb in a Single Run  :"+ stats.getBiggestClimbInSingleRun(ladderMoves));
         System.out.println("Biggest Slide in a Single Run  :"+ stats.getBiggestSlideInSingleRun(snakeMoves));

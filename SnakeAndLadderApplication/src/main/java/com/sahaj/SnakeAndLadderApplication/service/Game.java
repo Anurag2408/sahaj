@@ -1,9 +1,7 @@
 package com.sahaj.SnakeAndLadderApplication.service;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -50,8 +48,6 @@ public class Game implements IGameInterface{
     }
 
     public void initializeLadderMoves(final int[] ladderMoves) {
-        //Ladders
-        //{4,25,13,46,33,49,42,63,50,69,62,81,74,92}
         for (int i = 0; i < ladderMoves.length; i++) {
             Ladder ladder = new Ladder(ladderMoves[i],ladderMoves[i + 1]);
             setOfLadder.add(ladder);
@@ -60,7 +56,7 @@ public class Game implements IGameInterface{
     }
 
     public void initializeSnakeMoves(final int[] snakeMoves) {
-        //{27,5,40,3,43,18,54,31,66,45,76,58,89,53,99,41};
+
         for (int i = 0; i < snakeMoves.length; i++) {
             Snake snake = new Snake(snakeMoves[i],snakeMoves[i + 1]);
             setOfSnake.add(snake);
@@ -135,8 +131,10 @@ public class Game implements IGameInterface{
                         luckyRoll++;
                         maxClimb += climbTaken(newPosition);
                     }
-                    else if(isUnluckyRoll(newPosition))
+                    else if(isUnluckyRoll(newPosition)) {
                         unLuckyRoll++;
+                        maxSlides += slidesTaken(newPosition);
+                    }
                 }
                 else
                     cell.setIndex(newPosition);
@@ -151,6 +149,5 @@ public class Game implements IGameInterface{
         return S;
 
     }
-
 
 }
